@@ -1,7 +1,7 @@
 import socket
 
 # Define the server address and port
-SERVER_ADDRESS = '127.0.0.1'
+SERVER_ADDRESS = '192.168.0.167'
 SERVER_PORT = 12345
 
 # Define the size of the buffer for receiving data
@@ -21,13 +21,14 @@ print('Waiting for a client connection...')
 client_socket, client_address = server_socket.accept()
 print('Connected to client at', client_address)
 
-filename ='test'
+filename ='test.bin'
 
 # Open a file for writing the received data
 with open(filename, 'wb') as file:
     while True:
         # Receive data from the client
         data = client_socket.recv(BUFFER_SIZE)
+        file.write(data)
         if not data:
             break
 

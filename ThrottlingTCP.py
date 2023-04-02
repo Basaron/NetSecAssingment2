@@ -1,21 +1,14 @@
 from scapy.all import *
 
 # Define the IP addresses and port numbers for the client and server
-src_ip = '127.0.0.2'
-dst_ip = '127.0.0.1'
-#src_port = 12346
-#dst_port = 12345
-
-# Define the packet delay time in seconds
-delay_time = 0.1
+src_ip = '192.168.0.127'
+dst_ip = '192.168.0.167'
 
 # Define the packet filter to capture incoming TCP packets
 filter = 'tcp and host {}'.format(dst_ip)
 
 # Define the packet handling function for delayed packets
 def delay_packet(packet):
-    
-    
     # Send 3 ACK packets to force retransmission
     for i in range(3):
         send(IP(dst=packet[IP].src, src=packet[IP].dst)/TCP(dport=packet[TCP].sport, sport=packet[TCP].dport, flags="A", seq=packet[TCP].seq, ack=packet[TCP].ack+1))
